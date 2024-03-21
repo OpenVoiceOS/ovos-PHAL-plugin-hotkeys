@@ -7,7 +7,7 @@ setup(
     name='ovos-PHAL-plugin-hotkeys',
     version='0.0.1',
     description='map keypresses to OVOS bus events',
-    url='https://github.com/OpenVoiceOS/ovos_ww_plugin_hotkeys',
+    url='https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys',
     author='JarbasAi',
     author_email='jarbasai@mailfence.com',
     license='Apache-2.0',
