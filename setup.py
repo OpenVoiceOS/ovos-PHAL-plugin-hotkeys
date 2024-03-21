@@ -2,17 +2,17 @@
 from setuptools import setup
 
 
-PLUGIN_ENTRY_POINT = 'ovos_ww_hotkeys=ovos_ww_plugin_hotkeys:HotKeysWakeWordPlugin'
+PLUGIN_ENTRY_POINT = 'ovos-PHAL-plugin-hotkeys=ovos_phal_plugin_hotkeys:HotKeysPlugin'
 setup(
-    name='ovos_ww_plugin_hotkeys',
-    version='0.1.0a1post1',
-    description='A wake word plugin for mycroft',
+    name='ovos-PHAL-plugin-hotkeys',
+    version='0.0.1',
+    description='map keypresses to OVOS bus events',
     url='https://github.com/OpenVoiceOS/ovos_ww_plugin_hotkeys',
     author='JarbasAi',
     author_email='jarbasai@mailfence.com',
     license='Apache-2.0',
-    packages=['ovos_ww_plugin_hotkeys'],
-    install_requires=["ovos-plugin-manager>=0.0.1a7", "keyboard"],
+    packages=['ovos_phal_plugin_hotkeys'],
+    install_requires=["ovos-plugin-manager", "keyboard"],
     zip_safe=True,
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -31,6 +31,6 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
-    keywords='mycroft plugin wake word',
-    entry_points={'mycroft.plugin.wake_word': PLUGIN_ENTRY_POINT}
+    keywords='OVOS plugin',
+    entry_points={'ovos.plugin.phal': PLUGIN_ENTRY_POINT}
 )
