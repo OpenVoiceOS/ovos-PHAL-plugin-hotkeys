@@ -63,7 +63,9 @@ A complete example based on events from a generic G20 USB remote
 
 ## Finding keys
 
-Some key presses might not be correctly detected and show up as "unknown"
+A list of valid key scancodes can be found [here](http://wiki.linuxcnc.org/cgi-bin/wiki.pl?Scancodes)
+
+Some key presses might not be correctly detected and show up as "unknown", some devices might also emit the wrong keycodes
 
 In this case you can enable the `debug` flag in the config, then check the logs
 
