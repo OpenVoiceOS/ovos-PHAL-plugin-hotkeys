@@ -84,7 +84,7 @@ def get_xmod_map():
         xmodmap_output = check_output('xmodmap -pke', shell=True)
         return xmodmap_output
     except subprocess.CalledProcessError:
-        LOG.warn("[WARNING] xmodmap not available!")
+        LOG.warning("[WARNING] xmodmap not available!")
         # TODO - default value ?
 
 
