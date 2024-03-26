@@ -84,9 +84,13 @@ def get_xmod_map():
         xmodmap_output = check_output('xmodmap -pke', shell=True)
         return xmodmap_output
     except subprocess.CalledProcessError:
-        LOG.warning("[WARNING] xmodmap not available!")
+        if not get_xmod_map.warned:
+            # only LOG once
+            LOG.warning("[WARNING] xmodmap not available!")
+            get_xmod_map.warned = True
         # TODO - default value ?
 
+get_xmod_map.warned = False
 
 def build_tables():
     if to_name and from_name: return
