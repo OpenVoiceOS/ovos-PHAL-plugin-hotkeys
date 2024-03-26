@@ -11,8 +11,9 @@ setup(
     author='JarbasAi',
     author_email='jarbasai@mailfence.com',
     license='Apache-2.0',
-    packages=['ovos_phal_plugin_hotkeys'],
-    install_requires=["ovos-plugin-manager", "keyboard"],
+    packages=['ovos_phal_plugin_hotkeys',
+              'ovos_phal_plugin_hotkeys.keyboard'],
+    install_requires=["ovos-plugin-manager"],
     zip_safe=True,
     classifiers=[
         'Development Status :: 3 - Alpha',

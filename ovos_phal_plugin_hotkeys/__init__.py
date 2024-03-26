@@ -10,10 +10,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import keyboard
 from ovos_bus_client.message import Message
 from ovos_plugin_manager.phal import PHALPlugin
 from ovos_utils import create_daemon
+from ovos_utils.log import LOG
+
+import ovos_phal_plugin_hotkeys.keyboard as keyboard
 
 
 class HotKeysPlugin(PHALPlugin):
@@ -36,14 +38,16 @@ class HotKeysPlugin(PHALPlugin):
             # Wait for the next event.
             event = keyboard.read_event()
             if event.event_type == keyboard.KEY_DOWN:
-                print("DEBUG", event.to_json())
+                LOG.info(event.to_json())
 
     def shutdown(self):
         keyboard.unhook_all_hotkeys()
 
 
-from ovos_utils import wait_for_exit_signal
-from ovos_utils.messagebus import FakeBus
+if __name__ == "__main__":
+    # debug
+    from ovos_utils import wait_for_exit_signal
+    from ovos_utils.messagebus import FakeBus
 
-p = HotKeysPlugin(FakeBus(), {"debug": True})
-wait_for_exit_signal()
+    p = HotKeysPlugin(FakeBus(), {"debug": True})
+    wait_for_exit_signal()

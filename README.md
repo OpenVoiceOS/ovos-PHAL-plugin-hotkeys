@@ -4,17 +4,13 @@ plugin for Keyboard hotkeys, define key combos to trigger bus events
 
 ## Install
 
-the `keyboard` package needs root to run, instead you should use this [maintained fork](https://github.com/Quentium-Forks/keyboard) and give permissions to your user instead
-
-`pip install git+https://github.com/Quentium-Forks/keyboard`
-
-add user to the `tty` and `input` groups
+you need to add your user to the `tty` and `input` groups
 
 `sudo usermod -a -G tty,input $USER`
 
 more info in [this issue](https://github.com/boppreh/keyboard/issues/312)
 
-Finally, install the plugin
+Then install the plugin
 
 `pip install ovos-PHAL-plugin-hotkeys`
 
@@ -77,3 +73,7 @@ DEBUG {"event_type": "down", "scan_code": 114, "name": "unknown", "time": 171105
 ```
 
 You can then use the `scan_code` integer in your config instead of `name` string
+
+## Credits
+
+- keyboard handling taken from [boppreh/keyboard](https://github.com/boppreh/keyboard) package
