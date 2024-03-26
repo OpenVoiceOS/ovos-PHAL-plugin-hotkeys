@@ -4,16 +4,17 @@ Use `dumpkeys --keys-only` to list all scan codes and their names. We
 then parse the output and built a table. For each scan code and modifiers we
 have a list of names and vice-versa.
 """
-import subprocess
-from subprocess import check_output
-from collections import defaultdict
 import re
+import subprocess
+from collections import defaultdict
+from ovos_utils.log import LOG
+from subprocess import check_output
 
-from ._keyboard_event import KeyboardEvent, KEY_DOWN, KEY_UP
 from ._canonical_names import all_modifiers, normalize_name, canonical_names
+from ._keyboard_event import KeyboardEvent, KEY_DOWN, KEY_UP
 from ._nixcommon import EV_KEY, aggregate_devices
 from ._xk_keysyms import XK_KEYSYM_SYMBOLS
-from ovos_utils.log import LOG
+
 
 # TODO: start by reading current keyboard state, as to not missing any already pressed keys.
 # See: http://stackoverflow.com/questions/3649874/how-to-get-keyboard-state-in-linux
@@ -37,8 +38,8 @@ def cleanup_key(name):
     if name.endswith('_l'):
         name = 'left ' + name[:-2]
 
-
     return normalize_name(name), is_keypad
+
 
 def cleanup_modifier(modifier):
     modifier = normalize_name(modifier)
@@ -48,15 +49,18 @@ def cleanup_modifier(modifier):
         return modifier[:-1]
     raise ValueError('Unknown modifier {}'.format(modifier))
 
+
 to_name = defaultdict(list)
 from_name = defaultdict(list)
 keypad_scan_codes = set()
+
 
 def register_key(key_and_modifiers, name):
     if name not in to_name[key_and_modifiers]:
         to_name[key_and_modifiers].append(name)
     if key_and_modifiers not in from_name[name]:
         from_name[name].append(key_and_modifiers)
+
 
 def _register_key_from_xmodmap_keysym(keyname: str, modifiers: tuple[str], keycode: int):
     if keyname == "NoSymbol":
@@ -78,19 +82,24 @@ def _register_key_from_xmodmap_keysym(keyname: str, modifiers: tuple[str], keyco
         if not keyname.startswith('XF86'):
             LOG.debug(f"{keyname} at keycode {keycode} and modifiers {modifiers} was not registered")
 
+
 def get_xmod_map():
+    if get_xmod_map.warned:
+        # dont spam logs
+        return
     # optional to allow running under EGLFS
     try:
         xmodmap_output = check_output('xmodmap -pke', shell=True)
         return xmodmap_output
     except subprocess.CalledProcessError:
-        if not get_xmod_map.warned:
-            # only LOG once
-            LOG.warning("[WARNING] xmodmap not available!")
-            get_xmod_map.warned = True
+        # only LOG once
+        LOG.warning("[WARNING] xmodmap not available!")
+        get_xmod_map.warned = True
         # TODO - default value ?
 
+
 get_xmod_map.warned = False
+
 
 def build_tables():
     if to_name and from_name: return
@@ -128,18 +137,22 @@ def build_tables():
             _register_key_from_xmodmap_keysym(keynames[5], ("shift", "alt gr"), keycode)
 
 
-
 device = None
+
+
 def build_device():
     global device
     if device: return
     device = aggregate_devices('kbd')
 
+
 def init():
     build_device()
     build_tables()
 
+
 pressed_modifiers = set()
+
 
 def listen(callback):
     build_device()
@@ -151,7 +164,7 @@ def listen(callback):
             continue
 
         scan_code = code
-        event_type = KEY_DOWN if value else KEY_UP # 0 = UP, 1 = DOWN, 2 = HOLD
+        event_type = KEY_DOWN if value else KEY_UP  # 0 = UP, 1 = DOWN, 2 = HOLD
 
         pressed_modifiers_tuple = tuple(sorted(pressed_modifiers))
         names = to_name[(scan_code, pressed_modifiers_tuple)] or to_name[(scan_code, ())] or ['unknown']
@@ -164,11 +177,14 @@ def listen(callback):
                 pressed_modifiers.discard(name)
 
         is_keypad = scan_code in keypad_scan_codes
-        callback(KeyboardEvent(event_type=event_type, scan_code=scan_code, name=name, time=time, device=device_id, is_keypad=is_keypad, modifiers=pressed_modifiers_tuple))
+        callback(KeyboardEvent(event_type=event_type, scan_code=scan_code, name=name, time=time, device=device_id,
+                               is_keypad=is_keypad, modifiers=pressed_modifiers_tuple))
+
 
 def write_event(scan_code, is_down):
     build_device()
     device.write_event(EV_KEY, scan_code, int(is_down))
+
 
 def map_name(name):
     build_tables()
@@ -180,11 +196,14 @@ def map_name(name):
         for entry in from_name[parts[1]]:
             yield entry
 
+
 def press(scan_code):
     write_event(scan_code, True)
 
+
 def release(scan_code):
     write_event(scan_code, False)
+
 
 def type_unicode(character):
     codepoint = ord(character)
@@ -203,7 +222,10 @@ def type_unicode(character):
         scan_code, _ = next(map_name(key))
         release(scan_code)
 
+
 if __name__ == '__main__':
     def p(e):
         print(e)
+
+
     listen(p)
