@@ -4,7 +4,7 @@ Use `dumpkeys --keys-only` to list all scan codes and their names. We
 then parse the output and built a table. For each scan code and modifiers we
 have a list of names and vice-versa.
 """
-
+import subprocess
 from subprocess import check_output
 from collections import defaultdict
 import re
