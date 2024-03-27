@@ -23,7 +23,13 @@ class HotKeysPlugin(PHALPlugin):
 
     def __init__(self, bus=None, config=None):
         super().__init__(bus=bus, name="ovos-PHAL-plugin-hotkeys", config=config)
-        for msg_type, key in self.config.get("mappings", {}).items():
+        for msg_type, key in self.config.get("key_down", {}).items():
+            def do_emit():
+                self.bus.emit(Message(msg_type))
+
+            keyboard.add_hotkey(key, do_emit)
+
+        for msg_type, key in self.config.get("key_up", {}).items():
             def do_emit():
                 self.bus.emit(Message(msg_type))
 
@@ -38,7 +44,9 @@ class HotKeysPlugin(PHALPlugin):
             # Wait for the next event.
             event = keyboard.read_event()
             if event.event_type == keyboard.KEY_DOWN:
-                LOG.info(event.to_json())
+                LOG.info("DOWN " + event.to_json())
+            if event.event_type == keyboard.KEY_UP:
+                LOG.info("UP " + event.to_json())
 
     def shutdown(self):
         keyboard.unhook_all_hotkeys()
