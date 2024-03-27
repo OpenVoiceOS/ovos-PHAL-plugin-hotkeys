@@ -25,12 +25,14 @@ class HotKeysPlugin(PHALPlugin):
         super().__init__(bus=bus, name="ovos-PHAL-plugin-hotkeys", config=config)
         for msg_type, key in self.config.get("key_down", {}).items():
             def do_emit():
+                LOG.debug(f"{key} -> {msg_type}")
                 self.bus.emit(Message(msg_type))
 
             keyboard.add_hotkey(key, do_emit)
 
         for msg_type, key in self.config.get("key_up", {}).items():
             def do_emit():
+                LOG.debug(f"{key} -> {msg_type}")
                 self.bus.emit(Message(msg_type))
 
             keyboard.add_hotkey(key, do_emit, trigger_on_release=True)
