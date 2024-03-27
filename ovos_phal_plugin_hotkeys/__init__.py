@@ -33,7 +33,7 @@ class HotKeysPlugin(PHALPlugin):
             def do_emit():
                 self.bus.emit(Message(msg_type))
 
-            keyboard.add_hotkey(key, do_emit)
+            keyboard.add_hotkey(key, do_emit, trigger_on_release=True)
 
         if self.config.get("debug"):
             create_daemon(self.debug_thread)
