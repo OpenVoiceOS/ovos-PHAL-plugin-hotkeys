@@ -20,27 +20,6 @@ Add any bus message + key combo under `"key_down"` and  `"key_up"`
 
 You may want to react when a key is pressed, or when a key is released
 
-For the Mark2 drivers you can find the emitted key events in  the [sj201-buttons-overlay.dts](https://github.com/OpenVoiceOS/VocalFusionDriver/blob/main/sj201-buttons-overlay.dts#L18) file
-
-> gpios 22-24 are the momentary switches; 25 is MuteMic SW connected to 3.3v or GND
-
-```json
- "PHAL": {
-    "ovos-PHAL-plugin-hotkeys": {
-        "key_down": {
-            "mycroft.mic.listen": 143,
-            "mycroft.mic.mute": 113,
-            "mycroft.volume.increase": 115,
-            "mycroft.volume.decrease": 114
-       },
-        "key_up": {
-            "mycroft.mic.unmute": 113
-       }
-    }
-}
-```
-> NOTE: see [VocalFusionDriver/issues/6](https://github.com/OpenVoiceOS/VocalFusionDriver/issues/6) about moving from `143` to `582`
-
 A complete example based on events from a generic G20 USB remote
 
 ```json
@@ -63,6 +42,28 @@ A complete example based on events from a generic G20 USB remote
     }
 }
 ```
+
+For the Mark2 drivers you can find the emitted key events in  the [sj201-buttons-overlay.dts](https://github.com/OpenVoiceOS/VocalFusionDriver/blob/main/sj201-buttons-overlay.dts#L18) file
+
+```json
+ "PHAL": {
+    "ovos-PHAL-plugin-hotkeys": {
+        "key_down": {
+            "mycroft.mic.listen": 143,
+            "mycroft.mic.mute": 113,
+            "mycroft.volume.increase": 115,
+            "mycroft.volume.decrease": 114
+       },
+        "key_up": {
+            "mycroft.mic.unmute": 113
+       }
+    }
+}
+```
+> gpios 22-24 are the momentary switches; 25 is MuteMic SW connected to 3.3v or GND
+
+> NOTE: see [VocalFusionDriver/issues/6](https://github.com/OpenVoiceOS/VocalFusionDriver/issues/6) about moving from `143` to `582`
+
 
 ## Finding keys
 
