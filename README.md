@@ -49,20 +49,18 @@ For the Mark2 drivers you can find the emitted key events in  the [sj201-buttons
  "PHAL": {
     "ovos-PHAL-plugin-hotkeys": {
         "key_down": {
-            "mycroft.mic.listen": 143,
-            "mycroft.mic.mute": 113,
+            "mycroft.mic.listen": 582,
+            "mycroft.mic.mute": 248,
             "mycroft.volume.increase": 115,
             "mycroft.volume.decrease": 114
        },
         "key_up": {
-            "mycroft.mic.unmute": 113
+            "mycroft.mic.unmute": 248
        }
     }
 }
 ```
 > gpios 22-24 are the momentary switches; 25 is MuteMic SW connected to 3.3v or GND
-
-> NOTE: see [VocalFusionDriver/issues/6](https://github.com/OpenVoiceOS/VocalFusionDriver/issues/6) about moving from `143` to `582`
 
 
 ## Finding keys
