@@ -12,7 +12,8 @@ setup(
     author_email='jarbasai@mailfence.com',
     license='Apache-2.0',
     packages=['ovos_phal_plugin_hotkeys',
-              'ovos_phal_plugin_hotkeys.keyboard'],
+              'ovos_phal_plugin_hotkeys.keyboard',
+              'ovos_phal_plugin_hotkeys.boards'],
     install_requires=["ovos-plugin-manager"],
     zip_safe=True,
     classifiers=[

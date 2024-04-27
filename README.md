@@ -16,9 +16,59 @@ Then install the plugin
 
 ## Configuration
 
+There are a number of ways configuration can happen.
+
+### Autoconfig
+
+When there is no configuration given, this will look for the file `~/.config/mycroft/i2c_platform` which is created when using [ovos-i2csound](https://github.com/OpenVoiceOS/ovos-i2csound).
+
+If `ovos-i2csound` is not being used, or you would like to override the results, a file can be defined in config.
+
+```json
+"PHAL": {
+    "ovos-PHAL-plugin-hotkeys": {
+        "autoconfig_file": "full/path/to/your/file"
+    }
+}
+```
+
+It will then try to read that file for configuration
+
+#### Config file format
+
 Add any bus message + key combo under `"key_down"` and  `"key_up"`
 
 You may want to react when a key is pressed, or when a key is released
+
+A complete example based on events from a generic G20 USB remote
+
+Create a file for your configuration.
+
+`nano /path/to/my/G20_config`
+
+Add valid json to the file
+
+```json
+"key_down": {
+    "mycroft.mic.listen": 582,
+    "mycroft.mic.mute.toggle": 190,
+    "mycroft.mic.mute": "shift+m",
+    "mycroft.mic.unmute": "shift+u",
+    "mycroft.volume.increase": 115,
+    "mycroft.volume.decrease": 114,
+    "mycroft.volume.mute.toggle": 113,
+    "mycroft.volume.mute": "ctrl+shift+m",
+    "mycroft.volume.unmute": "ctrl+shift+u",
+    "homescreen.manager.show_active": 144,
+    "ovos.common_play.play_pause": 164
+    }
+```
+
+**NOTE** you do not need to add the plugin name when you create a separate file.
+
+### User defined config in `~/.config/mycroft/mycroft.conf`
+
+When adding to your mycroft.conf file, you need to make sure it is using the correct plugin.
 
 A complete example based on events from a generic G20 USB remote
 
@@ -39,6 +89,30 @@ A complete example based on events from a generic G20 USB remote
             "homescreen.manager.show_active": 144,
             "ovos.common_play.play_pause": 164
        }
+    }
+}
+```
+
+You can override the configuration in `mycroft.conf` by adding `"autoconfigure": true` to your plugin config.
+
+```json
+"PHAL": {
+    "ovos-PHAL-plugin-hotkeys": {
+        "autoconfigure": true,
+        "debug": false,
+        "key_down": {
+            "mycroft.mic.listen": 582,
+            "mycroft.mic.mute.toggle": 190,
+            "mycroft.mic.mute": "shift+m",
+            "mycroft.mic.unmute": "shift+u",
+            "mycroft.volume.increase": 115,
+            "mycroft.volume.decrease": 114,
+            "mycroft.volume.mute.toggle": 113,
+            "mycroft.volume.mute": "ctrl+shift+m",
+            "mycroft.volume.unmute": "ctrl+shift+u",
+            "homescreen.manager.show_active": 144,
+            "ovos.common_play.play_pause": 164
+        }
     }
 }
 ```
