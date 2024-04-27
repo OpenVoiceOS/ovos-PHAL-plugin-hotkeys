@@ -57,7 +57,7 @@ class HotKeysPlugin(PHALPlugin):
             try:
                 with open(config_file) as config:
                     LOG.debug(f"loading json from {config_file}")
-                    new_config = json.load(new_config)
+                    new_config = json.load(config)
                     self.load_config(new_config, json=True)
             except JSONDecodeError:
                 with open(config_file, "r") as config:
@@ -66,6 +66,8 @@ class HotKeysPlugin(PHALPlugin):
                     if platform in KNOWN_BOARDS:
                         LOG.debug(f"loading config for {platform}")
                         self.load_config(platform)
+            except Exception as e:
+                LOG.debug(e)
         else:
             LOG.debug(f"config file {config_file} does not exist")
 
