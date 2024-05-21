@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from setuptools import setup
 
+from ovos_utils.xdg_utils import XDG_DATA_HOME
 
 PLUGIN_ENTRY_POINT = 'ovos-PHAL-plugin-hotkeys=ovos_phal_plugin_hotkeys:HotKeysPlugin'
 setup(
@@ -13,7 +14,9 @@ setup(
     license='Apache-2.0',
     packages=['ovos_phal_plugin_hotkeys',
               'ovos_phal_plugin_hotkeys.keyboard',
-              'ovos_phal_plugin_hotkeys.boards'],
+              "ovos_phal_plugin_hotkeys.config"],
+    package_data={"config": ["*.json"]},
+    include_package_data=True,
     install_requires=["ovos-plugin-manager"],
     zip_safe=True,
     classifiers=[

@@ -12,87 +12,140 @@
 #
 import json
 from json.decoder import JSONDecodeError
-from os.path import exists
+from os import walk
+from os.path import exists, join, basename, dirname
 
 from ovos_bus_client.message import Message
 from ovos_plugin_manager.phal import PHALPlugin
 from ovos_utils.log import LOG
+from ovos_utils.xdg_utils import XDG_DATA_DIRS, XDG_DATA_HOME
+
+# TODO: Update ovos-PHAL to differentiate sj201 v6/v10
+# Currently, it only detects v6
+from ovos_PHAL.detection import is_respeaker_2mic, is_mycroft_sj201
+
+from ovos_plugin_manager.templates.phal import PHALValidator
 
 import ovos_phal_plugin_hotkeys.keyboard as keyboard
-from ovos_phal_plugin_hotkeys.boards import WM8960, SJ201
 
-# Add boards from ovos-i2csound here, or custom boards from boards.py
-# Be sure to add the import if getting from boards.py
-KNOWN_BOARDS = ["wm8960", "SJ201"]
+
+def get_preconfigured_devices():
+    local_config = join(dirname(__file__), "config")
+    device_dir = "OpenVoiceOS/hotkey_devices"
+    devices = []
+    for (p, d, f) in walk(local_config):
+        for filename in f:
+            devices.append(join(p, filename))
+    for directory in XDG_DATA_DIRS:
+        for (p, d, f) in walk(join(directory, device_dir)):
+            for filename in f:
+                devices.append(join(p, filename))
+    for (p, d, f) in walk(join(XDG_DATA_HOME, device_dir)):
+        for filename in f:
+            devices.append(join(p, filename))
+    LOG.debug(f"devices found {devices}")
+    return devices
+
+
+# File is defined in ovos-i2csound
+# https://github.com/OpenVoiceOS/ovos-i2csound/blob/dev/ovos-i2csound#L76
+I2C_PLATFORM_FILE = "/etc/OpenVoiceOS/i2c_platform"
+
+
+class HotKeysPluginValidator(PHALValidator):
+    @staticmethod
+    def validate(config=None):
+        # If the user enabled the plugin no need to go further
+        if config.get("enabled"):
+            LOG.debug("user enabled")
+            return True
+        # This plugin needs configuration to work.  If there is none, no need to load
+        if "key_up" in config or "key_down" in config:
+            # User has predefined settings.
+            LOG.debug("User manually defined a configuration")
+            return True
+        # Check for pre-configured HAT files
+        if get_preconfigured_devices():
+            LOG.debug("Pre-configured HAT's found")
+            return True
+        # Do a direct hardware check
+        if is_mycroft_sj201() or is_respeaker_2mic():
+            LOG.debug("Direct hardware detection")
+            return True
+        LOG.debug("no validation")
+        return False
 
 
 class HotKeysPlugin(PHALPlugin):
     """Keyboard hotkeys, define key combo to trigger listening"""
+    validator = HotKeysPluginValidator
 
     def __init__(self, bus=None, config=None):
         super().__init__(bus=bus, name="ovos-PHAL-plugin-hotkeys", config=config)
-        # Assign a value to 'autoconfig_file'
-        # Can either contain a single line with values from 'ovos-i2csound',
-        # Or can be valid json with 'key_up' and or 'key_down'
-        self.autoconfig_file = self.config.get(
-            "autoconfig_file", "/home/ovos/.config/mycroft/i2c_platform")
+        self.devices = get_preconfigured_devices() or []
         # Check for existing configuration of 'key_up' and 'key_down'
         if "key_up" in self.config or "key_down" in self.config:
-            # User has predefined settings.  Check for override
+            # User has predefined settings.
+            LOG.debug("User manually defined a configuration")
             if self.config.get("autoconfigure"):
-                # User wants to override personal settings
-                self.autoconfig(self.autoconfig_file)
+                # User wants to use personal settings
+                LOG.warning(
+                    "ignoring automatic configuration, user defined it's own mycroft.conf")
+        elif self.config.get("autoconfigure", True):
+            LOG.debug("Attempting to auto configure plugin")
+            self._autoconfig()
         else:
-            # No configuration given, try to autodetect
-            LOG.debug(
-                f"no configuration given.  Trying to autodetect from {self.autoconfig_file}")
-            self.autoconfig(self.autoconfig_file)
+            # No configuration given and auto config disabled by user in mycroft.conf
+            raise ValueError(
+                "no configuration given. Please configure the plugin in mycroft.conf")
 
         self.register_callbacks()
 
-    def autoconfig(self, config_file):
+    def _autoconfig(self):
+        def get_device_config(device):
+            for filename in self.devices:
+                if basename(filename).split(".")[0].lower() == device.lower():
+                    with open(filename) as config:
+                        try:
+                            device = json.load(config)
+                            self.add_config(device)
+                        except JSONDecodeError:
+                            LOG.error(f"Config for {device} is not valid")
+                    break
+        # Check for a user defined device
+        if self.config.get("user_device"):
+            get_device_config(self.config.get("user_device"))
+        # Check for file i2csound created
         # Make sure the file exists
-        if exists(config_file):
-            # Check for json
-            try:
-                with open(config_file) as config:
-                    LOG.debug(f"loading json from {config_file}")
-                    new_config = json.load(config)
-                    self.load_config(new_config, json=True)
-            except JSONDecodeError:
-                with open(config_file, "r") as config:
-                    LOG.debug(f"file {config_file} is not json")
-                    platform = config.readline().strip()
-                    if platform in KNOWN_BOARDS:
-                        LOG.debug(f"loading config for {platform}")
-                        self.load_config(platform)
-            except Exception as e:
-                LOG.debug(e)
+        elif exists(I2C_PLATFORM_FILE):
+            with open(I2C_PLATFORM_FILE) as config:
+                i2c_platform = config.readline().strip()
+                get_device_config(i2c_platform)
+                # Check direct hardware detection
+        elif is_mycroft_sj201:
+            for device in self.devices:
+                if "sj201v6" in device.lower():
+                    get_device_config(device)
+        elif is_respeaker_2mic:
+            for device in self.devices:
+                if "wm8960" in device.lower():
+                    get_device_config(device)
         else:
-            LOG.debug(f"config file {config_file} does not exist")
+            LOG.error("No valid configuration available")
+            raise Exception("No valid configuration")
 
-    def load_config(self, new_config, json=False):
-        def add_config(config):
-            for k, v in config.items():
-                if k == "key_down":
-                    self.config["key_down"] = {}
-                    for kd, kdv in v.items():
-                        self.config["key_down"][kd] = kdv
-                if k == "key_up":
-                    self.config["key_up"] = {}
-                    for ku, kuv in v.items():
-                        self.config["key_up"][ku] = kuv
-                else:
-                    self.config[k] = v
-        # If config not a dict, it is coming from boards.py
-        if not json:
-            # Check for the known boards
-            if new_config == "wm8960":
-                add_config(WM8960)
-            if new_config == "SJ201":
-                add_config(SJ201)
-        else:
-            add_config(new_config)
+    def add_config(self, config):
+        for k, v in config.items():
+            if k == "key_down":
+                self.config["key_down"] = {}
+                for kd, kdv in v.items():
+                    self.config["key_down"][kd] = kdv
+            if k == "key_up":
+                self.config["key_up"] = {}
+                for ku, kuv in v.items():
+                    self.config["key_up"][ku] = kuv
+            else:
+                self.config[k] = v
 
     def register_callbacks(self):
         """combos are registered independently
