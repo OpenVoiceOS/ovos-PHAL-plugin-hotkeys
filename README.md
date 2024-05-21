@@ -20,19 +20,16 @@ There are a number of ways configuration can happen.
 
 ### Autoconfig
 
-When there is no configuration given, this will look for the file `~/.config/mycroft/i2c_platform` which is created when using [ovos-i2csound](https://github.com/OpenVoiceOS/ovos-i2csound).
+This plugin comes with a few pre-configured devices located in the `config` directory.  If one of those devices is found, it will automatically be configured to use.
+
+When there is no configuration given, this will look for the file `/etc/OpenVoiceOS/i2c_platform` which is created when using [ovos-i2csound](https://github.com/OpenVoiceOS/ovos-i2csound).
 
 If `ovos-i2csound` is not being used, or you would like to override the results, a file can be defined in config.
 
-```json
-"PHAL": {
-    "ovos-PHAL-plugin-hotkeys": {
-        "autoconfig_file": "full/path/to/your/file"
-    }
-}
-```
+You can add any config for any device that you may want to use by creating a file in one of two places
 
-It will then try to read that file for configuration
+`/usr/local/share/OpenVoiceOS/hotkey_devices`
+`~/.local/share/OpenVoiceOS/hotkey_devices`
 
 #### Config file format
 
@@ -44,7 +41,7 @@ A complete example based on events from a generic G20 USB remote
 
 Create a file for your configuration.
 
-`nano /path/to/my/G20_config`
+`nano ~/.local/share/OpenVoiceOS/hotkey_devices/G20_config.json`
 
 Add valid json to the file
 
@@ -93,7 +90,7 @@ A complete example based on events from a generic G20 USB remote
 }
 ```
 
-You can override the configuration in `mycroft.conf` by adding `"autoconfigure": true` to your plugin config.
+If there is configuration in `mycroft.conf`, autoconfigure will not be used even if `"autoconfigure": true`.
 
 ```json
 "PHAL": {
