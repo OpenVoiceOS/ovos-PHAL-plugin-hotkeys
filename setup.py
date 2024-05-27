@@ -3,10 +3,34 @@ from setuptools import setup
 
 from ovos_utils.xdg_utils import XDG_DATA_HOME
 
+def get_version():
+    """ Find the version of the package"""
+    version = None
+    version_file = os.path.join(BASEDIR, 'version.py')
+    major, minor, build, alpha = (None, None, None, None)
+    with open(version_file) as f:
+        for line in f:
+            if 'VERSION_MAJOR' in line:
+                major = line.split('=')[1].strip()
+            elif 'VERSION_MINOR' in line:
+                minor = line.split('=')[1].strip()
+            elif 'VERSION_BUILD' in line:
+                build = line.split('=')[1].strip()
+            elif 'VERSION_ALPHA' in line:
+                alpha = line.split('=')[1].strip()
+
+            if ((major and minor and build and alpha) or
+                    '# END_VERSION_BLOCK' in line):
+                break
+    version = f"{major}.{minor}.{build}"
+    if alpha and int(alpha) > 0:
+        version += f"a{alpha}"
+    return version
+
 PLUGIN_ENTRY_POINT = 'ovos-PHAL-plugin-hotkeys=ovos_phal_plugin_hotkeys:HotKeysPlugin'
 setup(
     name='ovos-PHAL-plugin-hotkeys',
-    version='0.0.1',
+    version=get_version(),
     description='map keypresses to OVOS bus events',
     url='https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys',
     author='JarbasAi',
