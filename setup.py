@@ -3,6 +3,10 @@ from setuptools import setup
 
 from ovos_utils.xdg_utils import XDG_DATA_HOME
 
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
+PLUGIN_ENTRY_POINT = 'ovos-PHAL-plugin-hotkeys=ovos_phal_plugin_hotkeys:HotKeysPlugin'
+
+
 def get_version():
     """ Find the version of the package"""
     version = None
@@ -27,7 +31,19 @@ def get_version():
         version += f"a{alpha}"
     return version
 
-PLUGIN_ENTRY_POINT = 'ovos-PHAL-plugin-hotkeys=ovos_phal_plugin_hotkeys:HotKeysPlugin'
+
+def required(requirements_file):
+    """ Read requirements file and remove comments and empty lines. """
+    with open(os.path.join(BASEDIR, requirements_file), 'r') as f:
+        requirements = f.read().splitlines()
+        if 'MYCROFT_LOOSE_REQUIREMENTS' in os.environ:
+            print('USING LOOSE REQUIREMENTS!')
+            requirements = [r.replace('==', '>=').replace(
+                '~=', '>=') for r in requirements]
+        return [pkg for pkg in requirements
+                if pkg.strip() and not pkg.startswith("#")]
+
+
 setup(
     name='ovos-PHAL-plugin-hotkeys',
     version=get_version(),
@@ -41,7 +57,7 @@ setup(
               "ovos_phal_plugin_hotkeys.config"],
     package_data={"config": ["*.json"]},
     include_package_data=True,
-    install_requires=["ovos-plugin-manager"],
+    install_requires=required("requirements.txt"),
     zip_safe=True,
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -49,16 +65,10 @@ setup(
         'Topic :: Text Processing :: Linguistic',
         'License :: OSI Approved :: Apache Software License',
 
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.0',
-        'Programming Language :: Python :: 3.1',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11'
     ],
     keywords='OVOS plugin',
     entry_points={'ovos.plugin.phal': PLUGIN_ENTRY_POINT}
