@@ -1,1 +1,2 @@
 ovos-plugin-manager
+ovos-i2c-detection>=0.0.0a5
