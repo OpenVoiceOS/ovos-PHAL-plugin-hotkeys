@@ -92,27 +92,6 @@ A complete example based on events from a generic G20 USB remote
 
 If there is configuration in `mycroft.conf`, autoconfigure will not be used even if `"autoconfigure": true`.
 
-```json
-"PHAL": {
-    "ovos-PHAL-plugin-hotkeys": {
-        "autoconfigure": true,
-        "debug": false,
-        "key_down": {
-            "mycroft.mic.listen": 582,
-            "mycroft.mic.mute.toggle": 190,
-            "mycroft.mic.mute": "shift+m",
-            "mycroft.mic.unmute": "shift+u",
-            "mycroft.volume.increase": 115,
-            "mycroft.volume.decrease": 114,
-            "mycroft.volume.mute.toggle": 113,
-            "mycroft.volume.mute": "ctrl+shift+m",
-            "mycroft.volume.unmute": "ctrl+shift+u",
-            "homescreen.manager.show_active": 144,
-            "ovos.common_play.play_pause": 164
-        }
-    }
-}
-```
 
 For the Mark2 drivers you can find the emitted key events in  the [sj201-buttons-overlay.dts](https://github.com/OpenVoiceOS/VocalFusionDriver/blob/main/sj201-buttons-overlay.dts#L18) file
 
@@ -132,7 +111,6 @@ For the Mark2 drivers you can find the emitted key events in  the [sj201-buttons
 }
 ```
 > gpios 22-24 are the momentary switches; 25 is MuteMic SW connected to 3.3v or GND
-
 
 ## Finding keys
 

@@ -20,9 +20,7 @@ from ovos_plugin_manager.phal import PHALPlugin
 from ovos_utils.log import LOG
 from ovos_utils.xdg_utils import XDG_DATA_DIRS, XDG_DATA_HOME
 
-# TODO: Update ovos-PHAL to differentiate sj201 v6/v10
-# Currently, it only detects v6
-from ovos_PHAL.detection import is_respeaker_2mic, is_mycroft_sj201
+from ovos_i2c_detection import is_wm8960, is_sj201_v6
 
 from ovos_plugin_manager.templates.phal import PHALValidator
 
@@ -67,7 +65,7 @@ class HotKeysPluginValidator(PHALValidator):
             LOG.debug("User manually defined a configuration")
             return True
         # Do a direct hardware check
-        if is_mycroft_sj201() or is_respeaker_2mic():
+        if is_sj201_v6() or is_wm8960():
             LOG.debug("Direct hardware detection")
             return True
         LOG.debug("no validation")
@@ -120,11 +118,11 @@ class HotKeysPlugin(PHALPlugin):
                 i2c_platform = config.readline().strip()
                 get_device_config(i2c_platform)
                 # Check direct hardware detection
-        elif is_mycroft_sj201:
+        elif is_sj201_v6:
             for device in self.devices:
                 if "sj201v6" in device.lower():
                     get_device_config(device)
-        elif is_respeaker_2mic:
+        elif is_wm8960:
             for device in self.devices:
                 if "wm8960" in device.lower():
                     get_device_config(device)
