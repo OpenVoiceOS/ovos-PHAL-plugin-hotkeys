@@ -20,7 +20,7 @@ def required(requirements_file):
 
 def get_version():
     """ Find the version of this package"""
-    version_file = join(BASEDIR, 'ovos_PHAL_plugin_mk2_v6_fan_control/version.py')
+    version_file = join(BASEDIR, 'ovos_phal_plugin_hotkeys/version.py')
     major, minor, build, alpha = (None, None, None, None)
     with open(version_file) as f:
         for line in f:
