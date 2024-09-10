@@ -1,11 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/HEAD)
+## [0.1.1a1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.1a1) (2024-09-10)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/112d87fea88f8022771c65b7806623fcb4d27609...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/112d87fea88f8022771c65b7806623fcb4d27609...0.1.1a1)
 
 **Merged pull requests:**
 
+- fix setup.py [\#6](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/6) ([JarbasAl](https://github.com/JarbasAl))
 - chore:remove test code [\#5](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/5) ([JarbasAl](https://github.com/JarbasAl))
 - chore:automations [\#4](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/4) ([JarbasAl](https://github.com/JarbasAl))
 
