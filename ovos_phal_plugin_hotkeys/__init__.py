@@ -76,16 +76,3 @@ class HotKeysPlugin(PHALPlugin):
         keyboard.unhook_all_hotkeys()
         super().shutdown()
 
-
-if __name__ == "__main__":
-    # debug
-    from ovos_utils import wait_for_exit_signal
-    from ovos_utils.messagebus import FakeBus
-
-    p = HotKeysPlugin(FakeBus(), {"debug": True}
-                      #            "key_down": {"test": 57, "test2": 28},
-                      #            "key_up": {"test": 57, "test2": 28}}
-                      )
-
-
-    wait_for_exit_signal()
