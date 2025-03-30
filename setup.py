@@ -91,9 +91,10 @@ setup(
     author_email='jarbasai@mailfence.com',
     license='Apache-2.0',
     packages=['ovos_phal_plugin_hotkeys',
-              'ovos_phal_plugin_hotkeys.keyboard',
-              "ovos_phal_plugin_hotkeys.config"],
-    package_data={"config": ["*.json"]},
+              'ovos_phal_plugin_hotkeys.keyboard'],
+    package_data={
+                'ovos_phal_plugin_hotkeys': ['config/*.json']
+                },
     include_package_data=True,
     install_requires=required("requirements.txt"),
     zip_safe=True,
