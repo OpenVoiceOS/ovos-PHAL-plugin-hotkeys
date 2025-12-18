@@ -1,14 +1,20 @@
 # Changelog
 
-## [0.1.1a1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.1a1) (2024-09-10)
+## [0.1.2a1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a1) (2025-12-18)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/112d87fea88f8022771c65b7806623fcb4d27609...0.1.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/V0.1.1...0.1.2a1)
+
+**Closed issues:**
+
+- OvO-Event [\#8](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/issues/8)
 
 **Merged pull requests:**
 
-- fix setup.py [\#6](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/6) ([JarbasAl](https://github.com/JarbasAl))
-- chore:remove test code [\#5](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/5) ([JarbasAl](https://github.com/JarbasAl))
-- chore:automations [\#4](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/4) ([JarbasAl](https://github.com/JarbasAl))
+- Configure Renovate [\#9](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/9) ([renovate[bot]](https://github.com/apps/renovate))
+
+## [V0.1.1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/V0.1.1) (2024-09-10)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.1...V0.1.1)
 
 
 
