@@ -1,11 +1,12 @@
 # Changelog
 
-## [0.1.2a3](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a3) (2025-12-19)
+## [0.1.2a4](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a4) (2025-12-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a2...0.1.2a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a2...0.1.2a4)
 
 **Merged pull requests:**
 
+- Update pilosus/action-pip-license-checker action to v3 [\#17](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/17) ([renovate[bot]](https://github.com/apps/renovate))
 - Update dependency python to 3.14 [\#10](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/10) ([renovate[bot]](https://github.com/apps/renovate))
 
 ## [0.1.2a2](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a2) (2025-12-19)
