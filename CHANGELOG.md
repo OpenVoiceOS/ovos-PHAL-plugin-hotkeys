@@ -1,20 +1,28 @@
 # Changelog
 
+## [0.1.3a1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.3a1) (2026-06-16)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a5...0.1.3a1)
+
+**Merged pull requests:**
+
+- fix: require ovos-plugin-manager\>=2.1.0 for opm.\* entry points and cap ovos-\* deps at next major [\#20](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/20) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.1.2a5](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a5) (2026-06-16)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a4...0.1.2a5)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/V...0.1.2a5)
 
 **Merged pull requests:**
 
 - chore: add missing shared CI workflows [\#18](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/18) ([JarbasAl](https://github.com/JarbasAl))
 
-## [0.1.2a4](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a4) (2025-12-19)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/V...0.1.2a4)
-
 ## [V](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/V) (2025-12-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a3...V)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a4...V)
+
+## [0.1.2a4](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a4) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a3...0.1.2a4)
 
 **Merged pull requests:**
 
