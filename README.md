@@ -1,26 +1,26 @@
 ## Hotkeys PHAL plugin
 
-plugin for Keyboard hotkeys, define key combos to trigger bus events
+This plugin maps keyboard hotkeys to OVOS bus events. You define key combinations, and the plugin sends the matching bus event when you press or release the keys.
 
 ## Install
 
-you need to add your user to the `tty` and `input` groups
+Add your user to the `tty` and `input` groups.
 
 `sudo usermod -a -G tty,input $USER`
 
-more info in [this issue](https://github.com/boppreh/keyboard/issues/312)
+You can find more information in [this issue](https://github.com/boppreh/keyboard/issues/312).
 
-Then install the plugin
+Then install the plugin.
 
 `pip install ovos-PHAL-plugin-hotkeys`
 
 ## Configuration
 
-Add any bus message + key combo under `"key_down"` and  `"key_up"`
+Add a bus message and a key combo under `"key_down"` or `"key_up"`.
 
-You may want to react when a key is pressed, or when a key is released
+Use `"key_down"` to react when a key is pressed. Use `"key_up"` to react when a key is released.
 
-A complete example based on events from a generic G20 USB remote
+Here is a complete example based on events from a generic G20 USB remote.
 
 ```json
  "PHAL": {
@@ -43,7 +43,7 @@ A complete example based on events from a generic G20 USB remote
 }
 ```
 
-For the Mark2 drivers you can find the emitted key events in  the [sj201-buttons-overlay.dts](https://github.com/OpenVoiceOS/VocalFusionDriver/blob/main/sj201-buttons-overlay.dts#L18) file
+For the Mark2 drivers, you can find the emitted key events in the [sj201-buttons-overlay.dts](https://github.com/OpenVoiceOS/VocalFusionDriver/blob/main/sj201-buttons-overlay.dts#L18) file.
 
 ```json
  "PHAL": {
@@ -60,16 +60,16 @@ For the Mark2 drivers you can find the emitted key events in  the [sj201-buttons
     }
 }
 ```
-> gpios 22-24 are the momentary switches; 25 is MuteMic SW connected to 3.3v or GND
 
+> gpios 22-24 are the momentary switches. gpio 25 is MuteMic SW, connected to 3.3v or GND.
 
 ## Finding keys
 
-A list of valid key scancodes can be found [here](http://wiki.linuxcnc.org/cgi-bin/wiki.pl?Scancodes)
+You can find a list of valid key scancodes [here](http://wiki.linuxcnc.org/cgi-bin/wiki.pl?Scancodes).
 
-Some key presses might not be correctly detected and show up as "unknown", some devices might also emit the wrong keycodes
+Some key presses are not detected correctly and show up as "unknown". Some devices also emit the wrong keycodes.
 
-In this case you can enable the `debug` flag in the config, then check the logs
+In this case, enable the `debug` flag in the config, then check the logs.
 
 ```commandline
 DEBUG {"event_type": "down", "scan_code": 57, "name": "space", "time": 1711050758.24674, "device": "/dev/input/event4", "is_keypad": false, "modifiers": []}
@@ -78,8 +78,12 @@ DEBUG {"event_type": "down", "scan_code": 115, "name": "unknown", "time": 171105
 DEBUG {"event_type": "down", "scan_code": 114, "name": "unknown", "time": 1711050864.262953, "device": "/dev/input/event3", "is_keypad": false, "modifiers": []}
 ```
 
-You can then use the `scan_code` integer in your config instead of `name` string
+Use the `scan_code` integer in your config instead of the `name` string.
 
 ## Credits
 
-- keyboard handling taken from [boppreh/keyboard](https://github.com/boppreh/keyboard) package
+- Keyboard handling comes from the [boppreh/keyboard](https://github.com/boppreh/keyboard) package.
+
+## License
+
+This plugin is available under the [Apache-2.0](LICENSE) license.
