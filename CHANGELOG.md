@@ -1,14 +1,66 @@
 # Changelog
 
-## [0.1.1a1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.1a1) (2024-09-10)
+## [0.1.3a2](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.3a2) (2026-07-31)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/112d87fea88f8022771c65b7806623fcb4d27609...0.1.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.3a1...0.1.3a2)
 
 **Merged pull requests:**
 
-- fix setup.py [\#6](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/6) ([JarbasAl](https://github.com/JarbasAl))
-- chore:remove test code [\#5](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/5) ([JarbasAl](https://github.com/JarbasAl))
-- chore:automations [\#4](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/4) ([JarbasAl](https://github.com/JarbasAl))
+- docs: rewrite README in Simplified Technical English [\#22](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/22) ([JarbasAl](https://github.com/JarbasAl))
+
+## [0.1.3a1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.3a1) (2026-06-16)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a5...0.1.3a1)
+
+**Merged pull requests:**
+
+- fix: require ovos-plugin-manager\>=2.1.0 for opm.\* entry points and cap ovos-\* deps at next major [\#20](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/20) ([JarbasAl](https://github.com/JarbasAl))
+
+## [0.1.2a5](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a5) (2026-06-16)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a4...0.1.2a5)
+
+**Merged pull requests:**
+
+- chore: add missing shared CI workflows [\#18](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/18) ([JarbasAl](https://github.com/JarbasAl))
+
+## [0.1.2a4](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a4) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/V...0.1.2a4)
+
+## [V](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/V) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a2...V)
+
+**Merged pull requests:**
+
+- Update pilosus/action-pip-license-checker action to v3 [\#17](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/17) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency python to 3.14 [\#10](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/10) ([renovate[bot]](https://github.com/apps/renovate))
+
+## [0.1.2a2](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a2) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a3...0.1.2a2)
+
+## [0.1.2a3](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a3) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.2a1...0.1.2a3)
+
+**Merged pull requests:**
+
+- Update actions/setup-python action to v6 [\#15](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/15) ([renovate[bot]](https://github.com/apps/renovate))
+- Update actions/checkout action to v6 [\#14](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/14) ([renovate[bot]](https://github.com/apps/renovate))
+
+## [0.1.2a1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/0.1.2a1) (2025-12-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/V0.1.1...0.1.2a1)
+
+**Merged pull requests:**
+
+- Configure Renovate [\#9](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/pull/9) ([renovate[bot]](https://github.com/apps/renovate))
+
+## [V0.1.1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/tree/V0.1.1) (2024-09-10)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys/compare/0.1.1...V0.1.1)
 
 
 
